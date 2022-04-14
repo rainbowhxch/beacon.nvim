@@ -46,7 +46,7 @@ M.setup = function(opts)
         ]]
     end
     ac = ac .. [[
-            silent autocmd WinEnter * lua require'beacon'.highlight_position(false)
+            silent autocmd WinEnter * lua vim.schedule(function() require'beacon'.highlight_position(false) end)
             silent autocmd CmdwinLeave * lua require'beacon'.clear_highlight()
         augroup end
     ]]
