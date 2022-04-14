@@ -1,64 +1,95 @@
-# accelerated-jk.nvim
-This plugin accelerates j/k mappings' steps while j or k key is repeating. The original version is [rhysd/accelerated-jk](https://github.com/rhysd/accelerated-jk) and now i rewrited it with Lua.
+# beacon.nvim
+
+Whenever cursor jumps some distance or moves between windows, it will flash so you can see where it is. This plugin is just rewrited from [beacon.nvim](https://github.com/DanilaMihailov/beacon.nvim) in Lua.
 
 ## Requirements
 - Neovim latest stable version or nightly
 
 ## Installation
-You can install `accelerated-jk.nvim` with your favorite package manager.
+You can install `beacon.nvim` with your favorite package manager.
 
 vim-plug:
 ```lua
-Plug 'rainbowhxch/accelerated-jk.nvim'
+Plug 'rainbowhxch/beacon.nvim'
 ```
 packer.nvim:
 ```lua
-use { 'rainbowhxch/accelerated-jk.nvim' }
+use { 'rainbowhxch/beacon.nvim' }
 ```
 
-## Usage
-After install, you can make acceleration work through mapping j/k to plugin's internal mappings.
-```lua
-vim.api.nvim_set_keymap('n', 'j', '<Plug>(accelerated_jk_gj)', {})
-vim.api.nvim_set_keymap('n', 'k', '<Plug>(accelerated_jk_gk)', {})
-```
-
-All internal mappings here:
-| Mappings                    | Meaning                     |
-|---------------              | ---------------             |
-| `<Plug>(accelerated_jk_j)`  | accelerated **j** movement  |
-| `<Plug>(accelerated_jk_k)`  | accelerated **k** movement  |
-| `<Plug>(accelerated_jk_gj)` | accelerated **gj** movement |
-| `<Plug>(accelerated_jk_gk)` | accelerated **gk** movement |
-
-
-## Modes
-All modes acceleration step according to the setting `acceleration_table`.
-
-- `time_driven`: The default one. With this mode, if the interval of key-repeat takes more than `acceleration_limit` ms, the step is reset. If you want to decelerate up/down moving by time instead of reset, set `enable_deceleration` to `true`. In addition, if you want to change deceleration rate, set `deceleration_table` to a proper value.
-- `position_driven`: Reset steps using only position determination. Not sensitive enough, the effect is not good as the `time_driven` mode.
+After installation, it should be used out of the box. Just enjoy it.
 
 ## Configuration
-If you stasify the default configuration, nothing is need to changed. Otherwise you can call `require('accelerated-jk').setup()` to change the behavior of acceleration. The default configuration is:
+If you stasify the default configuration, nothing is need to changed. Otherwise you can call 'require("beacon").setup()' to change the its behavior. The default configuration is:
+
 ```lua
-require('accelerated-jk').setup({
-    mode = 'time_driven',
-    enable_deceleration = false,
-    acceleration_limit = 150,
-    acceleration_table = { 7,12,17,21,24,26,28,30 },
-    deceleration_table = { {150, 9999} }
+require('beacon').setup({
+	enable = true,
+	size = 40,
+	fade = true,
+	minimal_jump = 10,
+	show_jumps = true,
+	focus_gained = false,
+	shrink = true,
+	timeout = 500,
+	ignore_buffers = {},
+	ignore_filetypes = {},
 })
 ```
 
 All configuration is here:
 
-| Item                  | Value                              | Meaning                                                                                                                                                                                          |
-|----------------       | ---------------                    | ---------------                                                                                                                                                                                  |
-| `mode`                | 'time_driven' or 'position_driven' | Acceleration modes                                                                                                                                                                                |
-| `enable_deceleration` | Boolean                            | Whether to enable deceleration                                                                                                                                                                   |
-| `acceleration_limit`  | Integer                            | The accelerated limit for `time_driven` mode                                                                                                                                                     |
-| `acceleration_table`  | List                               | Step will adjust with this table when accelerating. Indexs represent steps of j/k mappings, values represent required number of typing j/k to advance steps                                      |
-| `deceleration_table`  | List                               | Step will adjust with this table when decelerating. Every element is a pair which the first element is elapsed time after last j/k typed and the second element is the count to decelerate steps |
+- `enable`	    bool (default:true)
+
+Whether to enable the plugin. When beacon is disabled, you can still use
+|:Beacon| command to highlight cursor.
+
+- `size` - int (default:40)
+
+Beacon size.
+
+- `fade` - bool (default:true)
+
+Whether to enable fading animation.
+
+- `minimal_jump` - int (default:10)
+
+The jump length which beacon considers significant jump.
+
+- `show_jumps` - bool (default:true)
+
+When set `false`, it will ignore jumps inside buffer.
+
+- `focus_gained` - bool (default:false)
+
+Whether to flash when focus is gained.
+
+- `shrink` - bool (default:true)
+
+Whether to enable shrinking animation.
+
+- `timeout` - int (default:500)
+
+Flash timeout.
+
+- `ignore_buffers` - list (default:{})
+
+To ignore a buffer you can add its name to this list.
+
+- `ignore_filetypes` - list (default:{})
+
+TO ignore a filetype you can add it to this list.
+
+## Commands
+- `:Beacon`: highlight current position (even if plugin is disabled)
+- `:BeaconToggle`: toggle beacon enable/disable
+
+## Highlights
+Beacon is highlighted by `Beacon` group, so you can change it like this:
+
+```vim
+    highlight Beacon guibg=white ctermbg=15
+```
 
 ## Copyright
 This plugin is distributed under MIT License.
