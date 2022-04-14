@@ -22,12 +22,12 @@ M.is_ignored_buffer = function(ignore_buffers)
         return true
     end
 
-    local buf_name = vim.api.nvim_buf_get_name(0)
+    local buf_name = vim.fn.bufname()
     if buf_name == '[Comand Line]' then
         return true
     end
     if ignore_buffers[buf_name] then
-                return true
+        return true
     end
     return false
 end

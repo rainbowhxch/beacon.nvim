@@ -6,9 +6,17 @@ local float_id = 0
 local fade_timer = 0
 local close_timer = 0
 local config = nil
+local ignore_buffers_set = {}
+local ignore_filetypes_set = {}
 
 M.setup = function(opts)
     config = opts
+    for _, ignore_buffer in ipairs(config.ignore_buffers) do
+        ignore_buffers_set[ignore_buffer] = true
+    end
+    for _, ignore_filetype in ipairs(config.ignore_filetypes) do
+        ignore_filetypes_set[ignore_filetype] = true
+    end
 end
 
 M.clear_highlight = function()
@@ -60,10 +68,10 @@ M.highlight_position = function(is_force)
     if config.enable == false and is_force == false then
         return
     end
-    if utils.is_ignored_filetype(config.ignore_filetypes) then
+    if utils.is_ignored_filetype(ignore_filetypes_set) then
         return
     end
-    if utils.is_ignored_buffer(config.ignore_buffers) then
+    if utils.is_ignored_buffer(ignore_buffers_set) then
         return
     end
 
