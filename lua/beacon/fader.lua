@@ -107,7 +107,7 @@ M.cursor_move = function()
     local cur_abs = vim.fn.line('.')
     local diff = math.abs(cur_cursor - prev_cursor)
     local abs_diff = math.abs(cur_abs - prev_abs)
-    if diff > config.minimal_jump and abs_diff > config.minimal_jump then
+    if diff >= config.minimal_jump and abs_diff >= config.minimal_jump then
         M.highlight_position(false)
     end
     prev_cursor = cur_cursor

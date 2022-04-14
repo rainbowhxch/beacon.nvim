@@ -4,6 +4,7 @@ local conf_module = require'beacon.config'
 local utils = require'beacon.utils'
 local fader = require'beacon.fader'
 local config = nil
+local initialized = false
 
 M.cursor_moved = function()
     fader.cursor_move()
@@ -21,7 +22,11 @@ M.beacon_toggle = function()
     fader.beacon_toggle();
 end
 
-M.setup = function (opts)
+M.setup = function(opts)
+    if initialized then
+        return
+    end
+
     config = conf_module.merge_config(opts)
     fader.setup(config)
     utils.create_default_highlight_group()
@@ -50,6 +55,7 @@ M.setup = function (opts)
         command! Beacon lua require'beacon'.highlight_position(true)
         command! BeaconToggle lua require'beacon'.beacon_toggle()
     ]]
+    initialized = true
 end
 
 return M
