@@ -49,7 +49,7 @@ After installation, it should be used out of the box. Just enjoy it.
 5. Configuration				      	 *beacon-configuration*
 
 If you stasify the default configuration, nothing is need to changed. Otherwise
-you can call 'require("beacon").setup()' to change the its behavior. The
+you can call `require("beacon").setup()` to change the its behavior. The
 default configuration is:
 >
     require('beacon').setup({
@@ -67,36 +67,36 @@ default configuration is:
 <
 
 All configuration is here:
-
-*enable*	    bool (default:true)
+							 *beacon-config.enable*
+enable	    bool (default:true)
 Whether to enable the plugin. When beacon is disabled, you can still use
 |:Beacon| command to highlight cursor.
-
-*size*		    int (default:40)
+							   *beacon-config.size*
+size		    int (default:40)
 Beacon size.
-
-*fade*		    bool (default:true)
+							   *beacon-config.fade*
+fade		    bool (default:true)
 Whether to enable fading animation.
-
-*minimal_jump*	    int (default:10)
+						   *beacon-config.minimal_jump*
+minimal_jump	    int (default:10)
 The jump length which beacon considers significant jump.
-
-*show_jumps*	    bool (default:true)
+						     *beacon-config.show_jumps*
+show_jumps	    bool (default:true)
 When set `false`, it will ignore jumps inside buffer.
-
-*focus_gained*	    bool (default:false)
+						   *beacon-config.focus_gained*
+focus_gained	    bool (default:false)
 Whether to flash when focus is gained.
-
-*shrink*        bool (default:true)
+							 *beacon-config.shrink*
+shrink        bool (default:true)
 Whether to enable shrinking animation.
-
-*timeout*       int (default:500)
+						        *beacon-config.timeout*
+timeout       int (default:500)
 Flash timeout.
-
-*ignore_buffers*    list (default:{})
+						 *beacon-config.ignore_buffers*
+ignore_buffers    list (default:{})
 To ignore a buffer you can add its name to this list.
-
-*ignore_filetypes*  list (default:{})
+					       *beacon-config.ignore_filetypes*
+ignore_filetypes  list (default:{})
 TO ignore a filetype you can add it to this list.
 
 ===============================================================================
