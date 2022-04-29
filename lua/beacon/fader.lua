@@ -97,6 +97,10 @@ M.highlight_position = function(is_force)
     style = 'minimal',
     focusable = false,
   }
+  -- some plugins wipe out the buffer, so here need to create a new one
+  if not vim.api.nvim_buf_is_valid(fake_buf) then
+    fake_buf = vim.api.nvim_create_buf(false, true)
+  end
   float_id = vim.api.nvim_open_win(fake_buf, false, opts)
   vim.api.nvim_win_set_option(float_id, 'winhl', 'Normal:Beacon')
   vim.api.nvim_win_set_option(float_id, 'winblend', 70)
