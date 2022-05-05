@@ -3,8 +3,7 @@ local M = {}
 
 local fake_buf = vim.api.nvim_create_buf(false, true)
 local float_id = 0
-local fade_timer = 0
-local close_timer = 0
+local fade_timer = vim.loop.new_timer()
 local config = nil
 local ignore_buffers_set = {}
 local ignore_filetypes_set = {}
@@ -20,15 +19,8 @@ M.setup = function(opts)
 end
 
 M.clear_highlight = function()
-  if fade_timer > 0 then
-    vim.fn.timer_stop(fade_timer)
-  end
-
-  if close_timer > 0 then
-    vim.fn.timer_stop(close_timer)
-  end
-
   if float_id > 0 and vim.api.nvim_win_is_valid(float_id) then
+    fade_timer:stop()
     vim.api.nvim_win_close(float_id, false)
     float_id = 0
   end
@@ -106,9 +98,9 @@ M.highlight_position = function(is_force)
   vim.api.nvim_win_set_option(float_id, 'winblend', 70)
 
   if config.fade then
-    fade_timer = vim.fn.timer_start(16, M.fade_window, { ['repeat'] = -1 })
+    fade_timer:start(0, 16, vim.schedule_wrap(M.fade_window))
   end
-  close_timer = vim.fn.timer_start(config.timeout, M.clear_highlight, { ['repeat'] = 1 })
+  vim.defer_fn(M.clear_highlight, config.timeout)
 end
 
 local prev_cursor = 0
