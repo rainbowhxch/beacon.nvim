@@ -76,13 +76,10 @@ M.highlight_position = function(is_force)
     return
   end
 
-  local cursor_position = vim.api.nvim_win_get_cursor(0)
-  cursor_position[1] = cursor_position[1] - 1
   local opts = {
-    relative = 'win',
+    relative = 'cursor',
     width = config.size,
     height = 1,
-    bufpos = cursor_position,
     col = 0,
     row = 0,
     anchor = 'NW',
