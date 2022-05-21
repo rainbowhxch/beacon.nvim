@@ -115,6 +115,14 @@ M.cursor_move = function()
   prev_abs = cur_abs
 end
 
+M.beacon_on = function()
+  config.enable = true
+end
+
+M.beacon_off = function()
+  config.enable = false
+end
+
 M.beacon_toggle = function()
   if config.enable == false then
     config.enable = true

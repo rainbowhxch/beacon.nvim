@@ -18,6 +18,14 @@ M.clear_highlight = function()
   fader.clear_highlight()
 end
 
+M.beacon_on = function()
+  fader.beacon_on()
+end
+
+M.beacon_off = function()
+  fader.beacon_off()
+end
+
 M.beacon_toggle = function()
   fader.beacon_toggle()
 end
@@ -54,6 +62,8 @@ M.setup = function(opts)
   vim.cmd(ac)
   vim.cmd([[
         command! Beacon lua require'beacon'.highlight_position(true)
+        command! BeaconOn lua require'beacon'.beacon_on()
+        command! BeaconOff lua require'beacon'.beacon_off()
         command! BeaconToggle lua require'beacon'.beacon_toggle()
     ]])
   initialized = true
