@@ -108,6 +108,12 @@ Highlight current position (even if plugin is disabled).
 *:BeaconToggle*
 Toggle beacon enable/disable.
 
+*:BeaconOn*
+Enable beacon.
+
+*:BeaconOff*
+Disable beacon.
+
 ===============================================================================
 7. Highlights						    *beacon-highlights*
 

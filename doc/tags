@@ -1,4 +1,6 @@
 :Beacon	beacon.txt	/*:Beacon*
+:BeaconOff	beacon.txt	/*:BeaconOff*
+:BeaconOn	beacon.txt	/*:BeaconOn*
 :BeaconToggle	beacon.txt	/*:BeaconToggle*
 beacon	beacon.txt	/*beacon*
 beacon-commands	beacon.txt	/*beacon-commands*
